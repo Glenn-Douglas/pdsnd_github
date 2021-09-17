@@ -98,7 +98,7 @@ def time_stats(df):
     df['Hour'] = pd.DatetimeIndex(df['Start Time']).hour
     def hour_text (row):
         if row['Hour'] ==0:
-            return '12:00 am'
+            return 'midnight'
         elif row['Hour'] ==1:
             return '1:00 am'
         elif row['Hour'] ==2:
@@ -122,7 +122,7 @@ def time_stats(df):
         elif row['Hour'] ==11:
             return '11:00 am'
         elif row['Hour'] ==12:
-            return '12:00 pm'
+            return 'noon'
         elif row['Hour'] ==13:
             return '1:00 pm'
         elif row['Hour'] ==14:
@@ -230,7 +230,7 @@ def main():
         user_stats(df)
 
         i = 0
-        raw = input("\nWould you like to see first 5 rows of raw data; type 'yes' or 'no'?\n").lower()
+        raw = input("\nWould you like to see first 5 rows of raw data? Type 'yes' or 'no'?\n").lower()
         pd.set_option('display.max_columns',200)
         while True:
             if raw.lower() == 'no':
