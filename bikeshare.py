@@ -67,7 +67,7 @@ def load_data(city, month, day):
         df = df[df['Weekday_Name'] == str(day.title())]
     else:
         df
-   
+
     return df
 
 def time_stats(df):
@@ -82,12 +82,12 @@ def time_stats(df):
         + ' with ' + str((pd.DataFrame(df['Month Name'].value_counts(ascending=False).nlargest(1)).iat[0,0])) +'.')
     elif len(df['Month Name'].unique()) == 1:
         print('Most common month not relevant. The data frame was initially loaded with a filter on month.')
-  
+
     # display the most common day of week
     if len(df['Weekday_Name'].unique()) > 1:
         print('The most common day for trips: '+ str((df['Weekday_Name'].value_counts(ascending=False).nlargest(1)).index[0])
         + ' with ' + str((pd.DataFrame(df['Weekday_Name'].value_counts(ascending=False).nlargest(1)).iat[0,0])) +'.')
-        
+
     elif len(df['Weekday_Name'].unique()) == 1:
         print('Most common day not relevant. The data frame was initially loaded with a filter on weekday.')
 
@@ -95,7 +95,7 @@ def time_stats(df):
     df['Hour'] = pd.DatetimeIndex(df['Start Time']).hour
     def hour_text (row):
         if row['Hour'] ==0:
-            return '12:00 am'
+            return 'midnight'
         elif row['Hour'] ==1:
             return '1:00 am'
         elif row['Hour'] ==2:
@@ -119,7 +119,7 @@ def time_stats(df):
         elif row['Hour'] ==11:
             return '11:00 am'
         elif row['Hour'] ==12:
-            return '12:00 pm'
+            return 'noon'
         elif row['Hour'] ==13:
             return '1:00 pm'
         elif row['Hour'] ==14:
@@ -147,10 +147,10 @@ def time_stats(df):
     df = df.join(hour_string,how='inner')
     print('The most common hour for trips: '+ str((df['hour_text'].value_counts(ascending=False).nlargest(1)).index[0])
         + ' with ' + str((pd.DataFrame(df['hour_text'].value_counts(ascending=False).nlargest(1)).iat[0,0])) +'.')
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
@@ -169,10 +169,10 @@ def station_stats(df):
     df['Trips'] = df['Start Station'] + ' to ' + df['End Station']
     print('The most common trip from start to end: ' + str((df['Trips'].value_counts(ascending=False).nlargest(1)).index[0])
           + ' with ' + str((pd.DataFrame(df['Trips'].value_counts(ascending=False).nlargest(1)).iat[0,0])) +' trips.')
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
@@ -186,7 +186,7 @@ def trip_duration_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
@@ -199,9 +199,9 @@ def user_stats(df):
     str(pd.DataFrame(df['User Type'].value_counts()).index[0]) +'s' + ' and ' +
     str(pd.DataFrame(df['User Type'].value_counts()).iat[1,0])  + ' ' +
     str(pd.DataFrame(df['User Type'].value_counts()).index[1]) +'s.')
-    
+
     # Display counts of gender
-    
+
     if 'Gender' in df.columns:
         print('There were ' + str(pd.DataFrame(df['Gender'].value_counts()).iat[0,0]) + ' ' +
         str(pd.DataFrame(df['Gender'].value_counts()).index[0]) +'s' + ' and ' +
@@ -215,7 +215,7 @@ def user_stats(df):
         print('Gender and birth year data available only for Chicago and New York City.')
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -225,7 +225,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
-        
+
         i = 0
         raw = input("\nWould you like to see first 5 rows of raw data; type 'yes' or 'no'?\n").lower()
         pd.set_option('display.max_columns',200)
@@ -237,8 +237,8 @@ def main():
             elif raw.lower() == 'yes':
                 print(df[i:i+5])
                 raw = input('\nWould you like to see the next rows 5 of raw data?\n').lower()
-                i += 5   
-        
+                i += 5
+
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         while True:
             if restart.lower() != 'no' and restart.lower() != 'yes':
@@ -248,15 +248,11 @@ def main():
             elif restart.lower() == 'no':
                 print('You have chosen to exit.')
                 sys.exit(0)
-            
-        
-        
+
+
+
 if __name__ == "__main__":
     	main()
 
 
 # In[ ]:
-
-
-
-
