@@ -227,7 +227,7 @@ def main():
         user_stats(df)
 
         i = 0
-        raw = input("\nWould you like to see first 5 rows of raw data; type 'yes' or 'no'?\n").lower()
+        raw = input("\nWould you like to see first 5 rows of raw data? Type 'yes' or 'no'?\n").lower()
         pd.set_option('display.max_columns',200)
         while True:
             if raw.lower() == 'no':
